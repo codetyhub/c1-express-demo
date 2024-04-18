@@ -1,14 +1,17 @@
 import express from 'express';
-import userRoutes from './routes/users.js';
+import usersRoutes from "./routes/users.js"
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const API_PREFIX = "/api/v1"
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// User routes
-app.use('/users', userRoutes);
+app.use(`${API_PREFIX}/users`, usersRoutes)
+
+app.use("/" , (req, res) => {
+  return res.status(200).json({message: "Welcome to Express Demo"})
+})  
 
 // Start the server
 app.listen(PORT, () => {
